@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Violette | Creative Portfolio</title>
+    
+    <!-- FAVICON - elegant monogram V icon using SVG data URI (works in all modern browsers) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%239FA1FF'/%3E%3Ctext x='50' y='72' font-size='64' font-family='Arial, Helvetica, sans-serif' font-weight='bold' fill='white' text-anchor='middle'%3EV%3C/text%3E%3C/svg%3E">
+    <!-- Fallback for older browsers: ico emoji (optional) -->
+    <link rel="alternate icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAo0lEQVRYhe2WQQ6AIAwE2f/jew9qYgIttIwQEjWZzZ5oM+k0dFL+cU7jGUwMw8ANeIBeNAAe4AV4gBfgAXiAF+AFfgF4pLTWTtVqo4kLPnYiAiqA2lZk8l8DEhAB+QCiFyIgPgAREAHxAYiACIgPQAREQHwAIiAC4gMQAREQH4AIiID4AERABMQHIAIiID4AERAB8QGIgOOB1trmAPcGvNG2j6QQ/yte+QAAAABJRU5ErkJggg==">
+    
+    <style>
+        /* ---------- RESET & GLOBAL ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, 'Segoe UI', 'Inter', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #fafcff 0%, #f0f4fe 100%);
+            color: #1a2a3f;
+            scroll-behavior: smooth;
+            line-height: 1.5;
+        }
+
+        /* container utility */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 28px;
+        }
+
+        /* ---------- STICKY NAVBAR (top) ---------- */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(159, 161, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 1rem 0;
+        }
+
+        .logo a {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            background: linear-gradient(135deg, #2C3E66, #4A6FA5);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+
+        .logo span {
+            background: #fff;
+            padding: 2px 8px;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #5f6caf;
+            margin-left: 6px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #1f2a4e;
+            transition: 0.25s;
+            font-size: 1.05rem;
+            padding: 0.4rem 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-links a:hover {
+            border-bottom-color: #ffffff;
+            color: #0a0f2a;
+            transform: translateY(-2px);
+        }
+
+        /* mobile friendly */
+        @media (max-width: 700px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+            .nav-links {
+                gap: 1.3rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .container {
+                padding: 0 20px;
+            }
+        }
+
+        /* ---------- SECTION STYLING (color codes applied) ---------- */
+        section {
+            padding: 80px 0 80px;
+            border-bottom: 1px solid rgba(159, 161, 255, 0.2);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+            background: linear-gradient(120deg, #9FA1FF, #AEE2FF);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 4px;
+            background: #D9F9DF;
+            border-radius: 4px;
+        }
+
+        /* home specific */
+        .home-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        .home-text {
+            flex: 1.2;
+        }
+        .home-text h1 {
+            font-size: 3.4rem;
+            font-weight: 800;
+            color: #2d3f6e;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        .home-text .highlight {
+            background: linear-gradient(145deg, #9FA1FF, #AEE2FF);
+            padding: 0.1rem 0.6rem;
+            border-radius: 60px;
+            display: inline-block;
+            color: #1f2a4e;
+        }
+        .home-text p {
+            font-size: 1.2rem;
+            color: #3c4b6e;
+            max-width: 550px;
+            margin: 1.2rem 0;
+        }
+        .home-badge {
+            background: #D9F9DF;
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 500;
+        }
+        .home-avatar {
+            flex: 0.8;
+            background: #AEE2FF;
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            padding: 1.8rem;
+            text-align: center;
+            box-shadow: 0 20px 30px -10px rgba(159, 161, 255, 0.3);
+        }
+        .avatar-symbol {
+            font-size: 8rem;
+        }
+        /* about */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            background: rgba(174, 226, 255, 0.2);
+            padding: 2rem;
+            border-radius: 48px;
+        }
+        .about-card {
+            background: white;
+            padding: 1.6rem;
+            border-radius: 28px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.02);
+            border: 1px solid rgba(159,161,255,0.3);
+        }
+        .about-card h3 {
+            color: #5f6caf;
+            margin-bottom: 0.8rem;
+        }
+
+        /* service cards */
+        .services-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+        .service-item {
+            background: #ffffffcc;
+            backdrop-filter: blur(2px);
+            flex: 1 1 260px;
+            padding: 1.8rem;
+            border-radius: 2rem;
+            transition: all 0.2s;
+            border: 1px solid #D9F9DF;
+            box-shadow: 0 12px 20px -12px rgba(0,0,0,0.05);
+        }
+        .service-item:hover {
+            transform: translateY(-8px);
+            border-color: #9FA1FF;
+            background: #fff;
+        }
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* portfolio grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .portfolio-card {
+            background: #fff;
+            border-radius: 32px;
+            overflow: hidden;
+            transition: 0.2s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+            border: 1px solid #eef2ff;
+        }
+        .portfolio-img {
+            background: #AEE2FF;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #3b4a6b;
+        }
+        .portfolio-info {
+            padding: 1.2rem;
+        }
+
+        /* contact */
+        .contact-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            background: rgba(217, 249, 223, 0.4);
+            border-radius: 48px;
+            padding: 2rem;
+        }
+        .contact-info {
+            flex: 1;
+        }
+        .contact-form {
+            flex: 1.2;
+        }
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 28px;
+            font-family: inherit;
+            background: white;
+            transition: 0.2s;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #9FA1FF;
+            box-shadow: 0 0 0 3px rgba(159,161,255,0.2);
+        }
+        .btn {
+            background: #9FA1FF;
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+        .btn:hover {
+            background: #7e80db;
+            transform: scale(0.97);
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        /* scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #9FA1FF;
+            color: white;
+            width: 52px;
+            height: 52px;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+            transition: all 0.2s;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.2s;
+        }
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .scroll-top:hover {
+            background: #6a6ccf;
+            transform: translateY(-4px);
+        }
+
+        /* ========== POPUP MODAL STYLES (50% DISCOUNT AD) ========== */
+        .discount-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.2s ease;
+        }
+        .modal-content {
+            background: linear-gradient(135deg, #ffffff 0%, #fef9e6 100%);
+            max-width: 500px;
+            width: 90%;
+            border-radius: 48px;
+            text-align: center;
+            padding: 2rem 1.8rem 2.2rem;
+            position: relative;
+            box-shadow: 0 30px 40px rgba(0, 0, 0, 0.2);
+            border: 2px solid #D9F9DF;
+            animation: slideUp 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .close-modal {
+            position: absolute;
+            top: 18px;
+            right: 24px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-weight: bold;
+            color: #7c7faa;
+            transition: 0.2s;
+        }
+        .close-modal:hover {
+            color: #ff5e6b;
+            transform: scale(1.1);
+        }
+        .discount-badge {
+            background: #D9F9DF;
+            display: inline-block;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #2d5a2e;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+        .discount-percent {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(145deg, #9FA1FF, #AEE2FF);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin: 0.5rem 0;
+        }
+        .discount-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1f2a4e;
+            margin-bottom: 0.5rem;
+        }
+        .discount-message {
+            color: #3c4b6e;
+            margin: 1rem 0;
+            line-height: 1.4;
+        }
+        .discount-code {
+            background: #f0eef9;
+            padding: 0.8rem;
+            border-radius: 50px;
+            font-family: monospace;
+            font-size: 1.3rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #5f6caf;
+            margin: 1rem 0;
+            border: 1px dashed #9FA1FF;
+        }
+        .claim-btn {
+            background: #9FA1FF;
+            color: white;
+            border: none;
+            padding: 0.9rem 2rem;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 0.5rem;
+            width: 80%;
+        }
+        .claim-btn:hover {
+            background: #7375cf;
+            transform: scale(0.98);
+        }
+        .no-thanks {
+            margin-top: 1.2rem;
+            font-size: 0.8rem;
+            color: #8f9bb5;
+            cursor: pointer;
+            text-decoration: underline;
+            display: inline-block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: #4f6091;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(159,161,255,0.3);
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- sticky navbar -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="#">V.Space<span>✨</span></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home">
+            <div class="container home-content">
+                <div class="home-text">
+                    <span class="home-badge">✨ digital artisan</span>
+                    <h1>Crafting <span class="highlight">digital stories</span><br>with soul & code.</h1>
+                    <p>Hi, I'm Violet — designer, developer, and creative problem solver. I build immersive web experiences that blend aesthetics with functionality. Let's create something remarkable.</p>
+                    <button class="btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Let's talk →</button>
+                </div>
+                <div class="home-avatar">
+                    <div class="avatar-symbol">🌿💻</div>
+                    <div style="margin-top: 10px; font-weight:500;">creative frontier</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <div class="container">
+                <h2 class="section-title">About me</h2>
+                <div class="about-grid">
+                    <div class="about-card">
+                        <h3>✦ Journey</h3>
+                        <p>Over 5+ years of shaping digital products, from concept to launch. I've collaborated with startups, agencies, and global brands. My passion sits at the intersection of design systems and human-centric interfaces.</p>
+                    </div>
+                    <div class="about-card">
+                        <h3>🎯 Mission</h3>
+                        <p>To design inclusive, memorable web solutions that empower users. Every line of code should tell a story, and every interaction should feel seamless. I thrive on turning complex ideas into elegant realities.</p>
+                    </div>
+                    <div class="about-card">
+                        <h3>💡 Beyond work</h3>
+                        <p>Open source contributor, plant parent, and art journaler. I believe in continuous learning and spreading creativity. When I'm not designing, you'll find me exploring nature or reading sci-fi.</p>
+                    </div>
+                </div>
+                <div style="margin-top: 2rem; background: #D9F9DF; border-radius: 60px; padding: 1rem 1.8rem; text-align: center;">
+                    🌟 “Design is not just what it looks like — design is how it works. And I love making it work beautifully.”
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services">
+            <div class="container">
+                <h2 class="section-title">What I do</h2>
+                <div class="services-wrapper">
+                    <div class="service-item">
+                        <div class="service-icon">🎨</div>
+                        <h3>UI/UX Design</h3>
+                        <p>Wireframes, prototypes, user flows and high-fidelity mockups. I craft interfaces that users love and remember. Based on research and empathy.</p>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-icon">💻</div>
+                        <h3>Web Development</h3>
+                        <p>Responsive, fast, and accessible websites. From interactive frontends (HTML/CSS/JS) to modern frameworks, I build robust digital solutions.</p>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-icon">⚡</div>
+                        <h3>Brand Identity</h3>
+                        <p>Visual storytelling, logo design, and brand guidelines. I help brands speak with clarity, consistency and character across all touchpoints.</p>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-icon">🚀</div>
+                        <h3>Performance Optimization</h3>
+                        <p>Speed audits, SEO best practices, and interactive enhancements. Making sure your digital presence not only looks great but performs excellently.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio">
+            <div class="container">
+                <h2 class="section-title">Selected projects</h2>
+                <div class="portfolio-grid">
+                    <div class="portfolio-card">
+                        <div class="portfolio-img">📱✨</div>
+                        <div class="portfolio-info">
+                            <h3>Nebula Flow</h3>
+                            <p>Interactive dashboard for creative analytics. Real-time data visualization with smooth micro-interactions. Role: Lead designer & front-end dev.</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-card">
+                        <div class="portfolio-img">🌿🖌️</div>
+                        <div class="portfolio-info">
+                            <h3>EcoBloom</h3>
+                            <p>Sustainable e-commerce concept — minimal, green-focused, with a checkout that donates 5% to reforestation. Featured on Awwwards.</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-card">
+                        <div class="portfolio-img">🎧💿</div>
+                        <div class="portfolio-info">
+                            <h3>SoundScape</h3>
+                            <p>Audio streaming interface with dynamic themes and playlist generators. Built with HTML/CSS/JS + responsive audio API integration.</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-card">
+                        <div class="portfolio-img">🏛️🎨</div>
+                        <div class="portfolio-info">
+                            <h3>Artifex Studio</h3>
+                            <p>Branding & portfolio site for a design collective. GSAP animations, modern grid layouts, and high conversion storytelling.</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <span style="background: #AEE2FF; padding: 0.4rem 1rem; border-radius: 60px;">➕ 6+ other collaborations — full case studies available</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="container">
+                <h2 class="section-title">Let's connect</h2>
+                <div class="contact-flex">
+                    <div class="contact-info">
+                        <div class="contact-item">📧 <strong>Email:</strong> hello@violetspace.com</div>
+                        <div class="contact-item">📞 <strong>Phone:</strong> +1 (555) 672-3489</div>
+                        <div class="contact-item">📍 <strong>Based:</strong> Brooklyn, NY / Remote</div>
+                        <div class="contact-item">🌐 <strong>Social:</strong> @violet.creative (IG/LinkedIn)</div>
+                        <p style="margin-top: 1.5rem; background: #D9F9DF; border-radius: 28px; padding: 1rem;">Open for collaborations, freelance & creative talks — just drop a message!</p>
+                    </div>
+                    <div class="contact-form">
+                        <form id="dummyContactForm">
+                            <div class="form-group">
+                                <input type="text" placeholder="Your name" id="name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" placeholder="Email address" id="email" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea rows="3" placeholder="Tell me about your idea..." id="message"></textarea>
+                            </div>
+                            <button type="submit" class="btn">Send message ✨</button>
+                            <p style="font-size: 0.75rem; margin-top: 12px;" id="formFeedback"></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 Violet • Designed with 💜 using #9FA1FF, #AEE2FF, #D9F9DF • All dummy content reflects creative portfolio.</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to top button -->
+    <button class="scroll-top" id="scrollTopBtn" aria-label="scroll to top">↑</button>
+
+    <!-- 50% DISCOUNT POPUP AD MODAL - appears on every entry -->
+    <div id="discountModal" class="discount-modal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModalBtn">&times;</button>
+            <div class="discount-badge">🎉 LIMITED FLASH SALE 🎉</div>
+            <div class="discount-percent">-50% OFF</div>
+            <div class="discount-title">Exclusive Creator Deal</div>
+            <div class="discount-message">Unlock 50% discount on any design or development package. Perfect for your next project!</div>
+            <div class="discount-code">USE CODE: <strong>VIOLET50</strong></div>
+            <button class="claim-btn" id="claimDiscountBtn">Claim My 50% Off →</button>
+            <div class="no-thanks" id="noThanksBtn">No thanks, maybe later</div>
+        </div>
+    </div>
+
+    <!-- External JavaScript (all in one for functionality) -->
+    <script>
+        // -------------------------------
+        // 50% DISCOUNT POPUP (EVERY TIME USER ENTERS THE WEBSITE)
+        // -------------------------------
+        function showDiscountPopup() {
+            const modal = document.getElementById('discountModal');
+            if (modal) {
+                modal.style.display = 'flex';
+            }
+        }
+
+        function closeDiscountPopup() {
+            const modal = document.getElementById('discountModal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function handleClaim() {
+            alert('🎁 Woo! 50% discount code "VIOLET50" copied! (demo) Contact me to redeem on your next project.');
+            closeDiscountPopup();
+        }
+
+        // Event listeners for modal buttons
+        document.addEventListener('DOMContentLoaded', () => {
+            // Show popup immediately when website loads (each visit / refresh)
+            showDiscountPopup();
+
+            const closeBtn = document.getElementById('closeModalBtn');
+            const noThanksBtn = document.getElementById('noThanksBtn');
+            const claimBtn = document.getElementById('claimDiscountBtn');
+
+            if (closeBtn) closeBtn.addEventListener('click', closeDiscountPopup);
+            if (noThanksBtn) noThanksBtn.addEventListener('click', closeDiscountPopup);
+            if (claimBtn) claimBtn.addEventListener('click', handleClaim);
+
+            const modal = document.getElementById('discountModal');
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeDiscountPopup();
+                });
+            }
+        });
+
+        // Scroll To Top Button Logic
+        const scrollBtn = document.getElementById('scrollTopBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                scrollBtn.classList.add('show');
+            } else {
+                scrollBtn.classList.remove('show');
+            }
+        });
+        scrollBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Active navbar highlight on scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        function updateActiveNav() {
+            let current = '';
+            const scrollPos = window.scrollY + 120;
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.style.borderBottomColor = 'transparent';
+                link.style.fontWeight = '500';
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.style.borderBottomColor = '#ffffff';
+                    link.style.fontWeight = '700';
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNav);
+        window.addEventListener('load', updateActiveNav);
+
+        // Dummy contact form handling
+        const contactForm = document.getElementById('dummyContactForm');
+        const feedbackSpan = document.getElementById('formFeedback');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const nameInput = document.getElementById('name').value.trim();
+                if (!nameInput) {
+                    feedbackSpan.innerText = '✨ Please enter your name to send a demo message.';
+                    feedbackSpan.style.color = '#c26b2e';
+                    return;
+                }
+                feedbackSpan.innerHTML = '✅ Thanks for reaching out! (demo) I’ll get back within 24h.';
+                feedbackSpan.style.color = '#2b6e3c';
+                contactForm.reset();
+                setTimeout(() => {
+                    feedbackSpan.innerHTML = '';
+                }, 4000);
+            });
+        }
+
+        // Smooth scroll for all navigation anchors
+        document.querySelectorAll('.nav-links a, .btn[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId && targetId !== '#') {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+
+        // Logo click smooth to top
+        const logoLink = document.querySelector('.logo a');
+        if (logoLink) {
+            logoLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // Portfolio card hover effect enhancement
+        const portfolioCards = document.querySelectorAll('.portfolio-card');
+        portfolioCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-6px)';
+                card.style.transition = '0.2s';
+                card.style.boxShadow = '0 18px 30px -12px rgba(159,161,255,0.3)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+                card.style.boxShadow = '0 10px 20px rgba(0,0,0,0.03)';
+            });
+        });
+    </script>
+</body>
+</html>
