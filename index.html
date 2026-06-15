@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Portfolio | Creative Portfolio</title>
+    <title>Violette | Creative Portfolio</title>
     
-    <!-- FAVICON - elegant monogram V icon using SVG data URI (works in all modern browsers) -->
+    <!-- FAVICON - elegant monogram V icon using SVG data URI -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%239FA1FF'/%3E%3Ctext x='50' y='72' font-size='64' font-family='Arial, Helvetica, sans-serif' font-weight='bold' fill='white' text-anchor='middle'%3EV%3C/text%3E%3C/svg%3E">
-    <!-- Fallback for older browsers: ico emoji (optional) -->
     <link rel="alternate icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAo0lEQVRYhe2WQQ6AIAwE2f/jew9qYgIttIwQEjWZzZ5oM+k0dFL+cU7jGUwMw8ANeIBeNAAe4AV4gBfgAXiAF+AFfgF4pLTWTtVqo4kLPnYiAiqA2lZk8l8DEhAB+QCiFyIgPgAREAHxAYiACIgPQAREQHwAIiAC4gMQAREQH4AIiID4AERABMQHIAIiID4AERAB8QGIgOOB1trmAPcGvNG2j6QQ/yte+QAAAABJRU5ErkJggg==">
     
     <style>
@@ -24,6 +23,7 @@
             color: #1a2a3f;
             scroll-behavior: smooth;
             line-height: 1.5;
+            overflow-x: hidden;
         }
 
         /* container utility */
@@ -33,12 +33,12 @@
             padding: 0 28px;
         }
 
-        /* ---------- STICKY NAVBAR (top) ---------- */
+        /* ---------- STICKY NAVBAR (top) with RESPONSIVE HAMBURGER ---------- */
         .navbar {
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: rgba(159, 161, 255, 0.92);
+            background: rgba(159, 161, 255, 0.95);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255,255,255,0.5);
             box-shadow: 0 8px 20px rgba(0,0,0,0.05);
@@ -51,6 +51,7 @@
             align-items: center;
             flex-wrap: wrap;
             padding: 1rem 0;
+            position: relative;
         }
 
         .logo a {
@@ -74,10 +75,12 @@
             margin-left: 6px;
         }
 
+        /* Desktop Navigation */
         .nav-links {
             display: flex;
             gap: 2rem;
             list-style: none;
+            transition: all 0.3s ease;
         }
 
         .nav-links a {
@@ -96,19 +99,100 @@
             transform: translateY(-2px);
         }
 
-        /* mobile friendly */
-        @media (max-width: 700px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 0.8rem;
+        /* Hamburger Menu Button - Hidden on Desktop */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 30px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+            backdrop-filter: blur(4px);
+        }
+        .hamburger:hover {
+            background: rgba(255,255,255,0.4);
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2.5px;
+            background-color: #1f2a4e;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
             }
             .nav-links {
-                gap: 1.3rem;
-                flex-wrap: wrap;
-                justify-content: center;
+                position: fixed;
+                top: 72px;
+                left: -100%;
+                width: 80%;
+                max-width: 320px;
+                height: calc(100vh - 72px);
+                background: rgba(159, 161, 255, 0.97);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding: 2rem 1rem;
+                gap: 1.8rem;
+                transition: left 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+                z-index: 1000;
+                border-radius: 0 28px 28px 0;
+                box-shadow: 8px 0 28px rgba(0,0,0,0.15);
+            }
+            .nav-links.active {
+                left: 0;
+            }
+            .nav-links a {
+                font-size: 1.25rem;
+                padding: 0.6rem 1rem;
+                width: 100%;
+                text-align: center;
+                border-bottom: 2px solid transparent;
+            }
+            .nav-links a:hover {
+                border-bottom-color: white;
+                background: rgba(255,255,255,0.15);
+                border-radius: 40px;
+            }
+            /* overlay when menu open */
+            .menu-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.3);
+                z-index: 999;
+                display: none;
+                backdrop-filter: blur(2px);
+            }
+            .menu-overlay.active {
+                display: block;
             }
             .container {
                 padding: 0 20px;
+            }
+        }
+
+        /* For very small devices */
+        @media (max-width: 480px) {
+            .logo a {
+                font-size: 1.5rem;
+            }
+            .logo span {
+                font-size: 0.8rem;
             }
         }
 
@@ -340,7 +424,6 @@
             z-index: 999;
             opacity: 0;
             visibility: hidden;
-            transition: 0.2s;
         }
         .scroll-top.show {
             opacity: 1;
@@ -483,17 +566,35 @@
         a {
             text-decoration: none;
         }
+        
+        /* Adjust section padding for mobile */
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 0;
+            }
+            .home-text h1 {
+                font-size: 2.4rem;
+            }
+            .avatar-symbol {
+                font-size: 5rem;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- sticky navbar -->
+    <!-- sticky navbar with responsive hamburger -->
     <nav class="navbar">
         <div class="container nav-container">
             <div class="logo">
                 <a href="#">V.Space<span>✨</span></a>
             </div>
-            <ul class="nav-links">
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#services">Services</a></li>
@@ -502,6 +603,8 @@
             </ul>
         </div>
     </nav>
+    <!-- overlay for mobile menu -->
+    <div class="menu-overlay" id="menuOverlay"></div>
 
     <main>
         <!-- Home Section -->
@@ -557,7 +660,7 @@
                     <div class="service-item">
                         <div class="service-icon">💻</div>
                         <h3>Web Development</h3>
-                        <p>Responsive, fast, and accessible websites. From interactive frontends (HTML/CSS/JS) to modern frameworks, I build robust digital solutions.</p>
+                        <p>Responsive, fast, and accessible websites. From interactive frontends to modern frameworks, I build robust digital solutions.</p>
                     </div>
                     <div class="service-item">
                         <div class="service-icon">⚡</div>
@@ -582,28 +685,28 @@
                         <div class="portfolio-img">📱✨</div>
                         <div class="portfolio-info">
                             <h3>Nebula Flow</h3>
-                            <p>Interactive dashboard for creative analytics. Real-time data visualization with smooth micro-interactions. Role: Lead designer & front-end dev.</p>
+                            <p>Interactive dashboard for creative analytics. Real-time data visualization with smooth micro-interactions.</p>
                         </div>
                     </div>
                     <div class="portfolio-card">
                         <div class="portfolio-img">🌿🖌️</div>
                         <div class="portfolio-info">
                             <h3>EcoBloom</h3>
-                            <p>Sustainable e-commerce concept — minimal, green-focused, with a checkout that donates 5% to reforestation. Featured on Awwwards.</p>
+                            <p>Sustainable e-commerce concept — minimal, green-focused, with a checkout that donates 5% to reforestation.</p>
                         </div>
                     </div>
                     <div class="portfolio-card">
                         <div class="portfolio-img">🎧💿</div>
                         <div class="portfolio-info">
                             <h3>SoundScape</h3>
-                            <p>Audio streaming interface with dynamic themes and playlist generators. Built with HTML/CSS/JS + responsive audio API integration.</p>
+                            <p>Audio streaming interface with dynamic themes and playlist generators. Built with HTML/CSS/JS + responsive API.</p>
                         </div>
                     </div>
                     <div class="portfolio-card">
                         <div class="portfolio-img">🏛️🎨</div>
                         <div class="portfolio-info">
                             <h3>Artifex Studio</h3>
-                            <p>Branding & portfolio site for a design collective. GSAP animations, modern grid layouts, and high conversion storytelling.</p>
+                            <p>Branding & portfolio site for a design collective. GSAP animations, modern grid layouts.</p>
                         </div>
                     </div>
                 </div>
@@ -651,10 +754,9 @@
         </div>
     </footer>
 
-    <!-- Scroll to top button -->
     <button class="scroll-top" id="scrollTopBtn" aria-label="scroll to top">↑</button>
 
-    <!-- 50% DISCOUNT POPUP AD MODAL - appears on every entry -->
+    <!-- 50% DISCOUNT POPUP AD MODAL -->
     <div id="discountModal" class="discount-modal">
         <div class="modal-content">
             <button class="close-modal" id="closeModalBtn">&times;</button>
@@ -668,66 +770,100 @@
         </div>
     </div>
 
-    <!-- External JavaScript (all in one for functionality) -->
     <script>
-        // -------------------------------
-        // 50% DISCOUNT POPUP (EVERY TIME USER ENTERS THE WEBSITE)
-        // -------------------------------
+        // RESPONSIVE NAVBAR: Hamburger toggle + overlay
+        const hamburger = document.getElementById('hamburgerBtn');
+        const navLinks = document.getElementById('navLinks');
+        const overlay = document.getElementById('menuOverlay');
+        
+        function closeMenu() {
+            navLinks.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        function openMenu() {
+            navLinks.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        if (hamburger) {
+            hamburger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (navLinks.classList.contains('active')) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            });
+        }
+        
+        if (overlay) {
+            overlay.addEventListener('click', closeMenu);
+        }
+        
+        // Close menu when a nav link is clicked (smooth scroll + close)
+        const allNavAnchors = document.querySelectorAll('.nav-links a');
+        allNavAnchors.forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                if (navLinks.classList.contains('active')) {
+                    closeMenu();
+                }
+                const targetId = anchor.getAttribute('href');
+                if (targetId && targetId !== '#') {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+        
+        // Close on window resize if open (prevent layout issues)
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+        
+        // 50% DISCOUNT POPUP LOGIC
         function showDiscountPopup() {
             const modal = document.getElementById('discountModal');
-            if (modal) {
-                modal.style.display = 'flex';
-            }
+            if (modal) modal.style.display = 'flex';
         }
-
         function closeDiscountPopup() {
             const modal = document.getElementById('discountModal');
             if (modal) modal.style.display = 'none';
         }
-
         function handleClaim() {
             alert('🎁 Woo! 50% discount code "VIOLET50" copied! (demo) Contact me to redeem on your next project.');
             closeDiscountPopup();
         }
-
-        // Event listeners for modal buttons
+        
         document.addEventListener('DOMContentLoaded', () => {
-            // Show popup immediately when website loads (each visit / refresh)
             showDiscountPopup();
-
             const closeBtn = document.getElementById('closeModalBtn');
             const noThanksBtn = document.getElementById('noThanksBtn');
             const claimBtn = document.getElementById('claimDiscountBtn');
-
             if (closeBtn) closeBtn.addEventListener('click', closeDiscountPopup);
             if (noThanksBtn) noThanksBtn.addEventListener('click', closeDiscountPopup);
             if (claimBtn) claimBtn.addEventListener('click', handleClaim);
-
             const modal = document.getElementById('discountModal');
-            if (modal) {
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) closeDiscountPopup();
-                });
-            }
+            if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) closeDiscountPopup(); });
         });
-
-        // Scroll To Top Button Logic
+        
+        // Scroll To Top Button
         const scrollBtn = document.getElementById('scrollTopBtn');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 400) {
-                scrollBtn.classList.add('show');
-            } else {
-                scrollBtn.classList.remove('show');
-            }
+            if (window.scrollY > 400) scrollBtn.classList.add('show');
+            else scrollBtn.classList.remove('show');
         });
-        scrollBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // Active navbar highlight on scroll
+        scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        
+        // Active nav highlight on scroll
         const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('.nav-links a');
-
         function updateActiveNav() {
             let current = '';
             const scrollPos = window.scrollY + 120;
@@ -738,7 +874,7 @@
                     current = section.getAttribute('id');
                 }
             });
-            navLinks.forEach(link => {
+            allNavAnchors.forEach(link => {
                 link.style.borderBottomColor = 'transparent';
                 link.style.fontWeight = '500';
                 if (link.getAttribute('href') === `#${current}`) {
@@ -747,11 +883,10 @@
                 }
             });
         }
-
         window.addEventListener('scroll', updateActiveNav);
         window.addEventListener('load', updateActiveNav);
-
-        // Dummy contact form handling
+        
+        // Dummy contact form
         const contactForm = document.getElementById('dummyContactForm');
         const feedbackSpan = document.getElementById('formFeedback');
         if (contactForm) {
@@ -766,41 +901,18 @@
                 feedbackSpan.innerHTML = '✅ Thanks for reaching out! (demo) I’ll get back within 24h.';
                 feedbackSpan.style.color = '#2b6e3c';
                 contactForm.reset();
-                setTimeout(() => {
-                    feedbackSpan.innerHTML = '';
-                }, 4000);
+                setTimeout(() => feedbackSpan.innerHTML = '', 4000);
             });
         }
-
-        // Smooth scroll for all navigation anchors
-        document.querySelectorAll('.nav-links a, .btn[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const targetId = this.getAttribute('href');
-                if (targetId && targetId !== '#') {
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        e.preventDefault();
-                        targetElement.scrollIntoView({ behavior: 'smooth' });
-                    }
-                }
-            });
-        });
-
-        // Logo click smooth to top
+        
+        // Logo click top
         const logoLink = document.querySelector('.logo a');
-        if (logoLink) {
-            logoLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        }
-
-        // Portfolio card hover effect enhancement
-        const portfolioCards = document.querySelectorAll('.portfolio-card');
-        portfolioCards.forEach(card => {
+        if (logoLink) logoLink.addEventListener('click', (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        
+        // Portfolio card hover effect
+        document.querySelectorAll('.portfolio-card').forEach(card => {
             card.addEventListener('mouseenter', () => {
                 card.style.transform = 'translateY(-6px)';
-                card.style.transition = '0.2s';
                 card.style.boxShadow = '0 18px 30px -12px rgba(159,161,255,0.3)';
             });
             card.addEventListener('mouseleave', () => {
